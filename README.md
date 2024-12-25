@@ -1,3 +1,5 @@
+[![hacs_badge](https://img.shields.io/badge/HACS-Custom-41BDF5.svg?style=for-the-badge)](https://github.com/hacs/integration)
+
 # Frigate Events Card
 
 **Frigate Events Card** is a custom Home Assistant Lovelace card that displays events from your Frigate instance in a user-friendly and compact format. This card allows you to easily monitor captured events, including clips, snapshots, and other relevant details.
