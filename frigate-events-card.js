@@ -63,58 +63,54 @@ class FrigateEventsCard extends HTMLElement {
     // Render the events
     renderEvents(events) {
         this.content.innerHTML = ""; // Clear existing content
-        
+    
         if (!events || events.length === 0) {
             this.content.innerHTML = `<p>No events found for the last ${this.config.hours_to_show} hours.</p>`;
             return;
         }
-        
+    
         const ul = document.createElement("ul");
         ul.style.padding = "0";
         ul.style.marginBlock = "0";
         ul.style.listStyleType = "none";
-
+    
+        const fragment = document.createDocumentFragment(); // Use a document fragment
         events.forEach((event) => {
-            // Format the timestamp
             const localTimestamp = formatTimestamp(event.start_time, this.config.timezone);
-
-            // Calculate score and confidence
             const score = event.data ? Math.max(event.data.score, event.data.top_score) : 0;
             const confidentThreshold = this.config.confidence_thresholds[event.camera] || 0;
             const confident = score > confidentThreshold;
-            
+    
             if (this.config.show_non_confident) {
-              if (score == 0 || confident) {
-                return;
-              }
+                if (score == 0 || confident) {
+                    return;
+                }
             } else {
-              if (score > 0 && !confident) {
-                return;
-              }
+                if (score > 0 && !confident) {
+                    return;
+                }
             }
-
-            // Generate label
+    
             const labelDisplayName = this.config.label_display_names[event.label] || event.label;
             const unknownDisplayName = this.config.label_display_names["unknown"] || "Unknown";
             const percent = Math.round(score * 1000) / 10; // Round to 1 decimal place
             const label = score > 0
                 ? `: ${confident ? labelDisplayName : unknownDisplayName} (${percent}%)`
                 : `: ${labelDisplayName}`;
-
-            // Create list item
+    
             const listItem = document.createElement("li");
             listItem.textContent = `• ${localTimestamp}${label}`;
-
+    
             if (event.has_clip && event.has_snapshot) {
                 const link = document.createElement("a");
                 link.href = `/api/frigate/notifications/${event.id}/clip.mp4`;
                 link.target = "_blank";
-
+    
                 const img = document.createElement("img");
                 img.style.width = "100%";
                 img.src = `/api/frigate/notifications/${event.id}/snapshot.jpg`;
                 img.alt = `${event.camera} - ${localTimestamp}`;
-
+    
                 link.appendChild(img);
                 listItem.appendChild(link);
             } else if (event.has_snapshot) {
@@ -123,14 +119,15 @@ class FrigateEventsCard extends HTMLElement {
                 img.style.border = "2px solid red";
                 img.src = `/api/frigate/notifications/${event.id}/snapshot.jpg`;
                 img.alt = `${event.camera} - ${localTimestamp}`;
-
+    
                 listItem.appendChild(img);
             }
-
-            ul.appendChild(listItem);
+    
+            fragment.appendChild(listItem); // Append to fragment
         });
-
-        this.content.appendChild(ul);
+    
+        ul.appendChild(fragment); // Append fragment to ul
+        this.content.appendChild(ul); // Append ul to content
     }
 
     // The user supplied configuration. Throw an exception and Home Assistant will render an error card.
