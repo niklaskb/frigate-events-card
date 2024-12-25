@@ -1,0 +1,1 @@
+# frigate-events-card
