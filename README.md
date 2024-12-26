@@ -2,7 +2,7 @@
 
 # Frigate Events Card
 
-**Frigate Events Card** is a custom Home Assistant Lovelace card that displays events from your Frigate instance in a user-friendly and compact format. This card allows you to easily monitor captured events, including clips, snapshots, and other relevant details.
+**Frigate Events Card** is a custom Home Assistant Lovelace card that displays events from your Frigate instance in a minimalistic format. This card allows you to easily monitor captured events, including clips, snapshots, and other relevant details.
 
 ## Features
 - Displays a list of Frigate events (including custom events) with timestamps and confidence scores.
@@ -88,7 +88,9 @@ rows: 7
 | `show_non_confident`    | boolean   | `false`      | Whether to display non-confident events.                  |
 | `rows`                  | number    | `5`          | The number of rows to allocate in grid layouts.           |
 
-## Screenshots
+
+## Screenshot
+![Screenshot](https://github.com/user-attachments/assets/79bd387c-2ca6-4cb4-9073-d3685d5cfabe)
 
 
 ### Contributing
