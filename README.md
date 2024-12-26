@@ -64,10 +64,10 @@ Add the card to your Lovelace dashboard using the YAML editor or visual editor.
 type: custom:frigate-events-card
 timezone: Europe/Stockholm
 label_display_names:
-  person: Person
-  car: Car
-  ir: Infrared
-  unknown: Unknown
+  person: "Person"
+  car: "Car"
+  ir: "Movement (IR)"
+  unknown: "Unknown"
 confidence_thresholds:
   camera_driveway: 0.8
   camera_backyard: 0.9
@@ -95,7 +95,7 @@ rows: 7
 
 ### Contributing
 
-Feel free to submit bug reports or feature requests via [GitHub Issues](https://github.com/your-repo-url). Contributions are welcome!
+Feel free to submit bug reports or feature requests via [GitHub Issues](https://github.com/niklaskb/frigate-events-card/issues). Contributions are welcome!
 
 
 ### License
