@@ -1,7 +1,7 @@
 // Helper function to format date
-function formatTimestamp(timestamp, timezone) {
+function formatTimestamp(timestamp, config) {
     const date = new Date(timestamp * 1000); // Convert Unix timestamp to milliseconds
-    return date.toLocaleString('sv-SE', { timeZone: timezone, hour12: false }); // Format date in 'YYYY-MM-DD HH:mm:ss'
+    return date.toLocaleString(config.dateLocale, { timeZone: config.timezone, hour12: config.hour12 });
 }
 
 class FrigateEventsCard extends HTMLElement {
@@ -76,7 +76,7 @@ class FrigateEventsCard extends HTMLElement {
     
         const fragment = document.createDocumentFragment(); // Use a document fragment
         events.forEach((event) => {
-            const localTimestamp = formatTimestamp(event.start_time, this.config.timezone);
+            const localTimestamp = formatTimestamp(event.start_time, this.config);
             const score = event.data ? Math.max(event.data.score, event.data.top_score) : 0;
             const confidentThreshold = this.config.confidence_thresholds[event.camera] || 0;
             const confident = score > confidentThreshold;
@@ -138,7 +138,8 @@ class FrigateEventsCard extends HTMLElement {
             throw new Error("You need to define a timezone");
         }
         c.timezone = config.timezone;
-
+        c.dateLocale = config.date_locale || "en-US";
+        c.hour12 = config.hour_12 ?? true;
         c.confidence_thresholds = config.confidence_thresholds || {};
         c.show_non_confident = config.show_non_confident || false;
         c.label_display_names = config.label_display_names || {};

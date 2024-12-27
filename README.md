@@ -62,7 +62,9 @@ Add the card to your Lovelace dashboard using the YAML editor or visual editor.
 ### Example Configuration
 ```yaml
 type: custom:frigate-events-card
-timezone: Europe/Stockholm
+timezone: "Europe/Stockholm"
+date_locale: "sv-SE"
+hour_12: false
 label_display_names:
   person: "Person"
   car: "Car"
@@ -79,13 +81,15 @@ rows: 7
 | Option                  | Type      | Default      | Description                                               |
 |-------------------------|-----------|--------------|-----------------------------------------------------------|
 | `instance_id`           | string    | `frigate`    | The Frigate instance ID.                                  |
-| `timezone`              | string    | **Required** | The timezone for displaying event timestamps.             |
+| `timezone`              | string    | **Required** | The timezone for displaying timestamps.                   |
+| `date_locale`           | string    | `en-US`      | The locale used for formatting timestamps.                |
+| `hour_12`               | boolean   | `true`       | Whether to use a 12-hour or 24-hour clock for timestamps. |
 | `hours_to_show`         | number    | `24`         | The number of hours of events to display.                 |
 | `max_num_events`        | number    | `100`        | The maximum number of events to retrieve.                 |
-| `height_percent`        | number    | `50`         | The height of the card as a percentage of the viewport.   |
 | `confidence_thresholds` | object    | `{}`         | Per-camera confidence thresholds for filtering events.    |
-| `label_display_names`   | object    | `{}`         | Custom display names for event labels.                    |
 | `show_non_confident`    | boolean   | `false`      | Whether to display non-confident events.                  |
+| `label_display_names`   | object    | `{}`         | Custom display names for event labels.                    |
+| `height_percent`        | number    | `50`         | The height of the card as a percentage of the viewport.   |
 | `rows`                  | number    | `5`          | The number of rows to allocate in grid layouts.           |
 
 
